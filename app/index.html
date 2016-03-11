@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJs Calendar</title>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/moment/min/moment.min.js"></script>
+    <script src="calendar.js"></script>
+    <style>
+        .hasevent {
+            color: #ca4649;
+        }
+        .istoday {
+            background-color: #0a9dc7;
+        }
+    </style>
+</head>
+<body ng-app="Demo" ng-controller="DemoController">
+    <calendar events="eventList" on-date-click="dateClick(events)"></calendar>
+</body>
+<script>
+    angular.module('Demo', ['ngCalendar']).controller('DemoController', ['$scope',function($scope) {
+        $scope.eventList = [];
+        $scope.eventList['2016-03-08'] = ['tip1', 'tip2'];
+        $scope.eventList['2016-03-18'] = ['tip3', 'tip4'];
+        $scope.eventList['2016-03-01'] = ['tip3', 'tip4'];
+        $scope.dateClick = function(events) {
+            if (!events) {
+                return false;
+            }
+            alert(events.join(','));
+        }
+    }]);
+</script>
+</html>

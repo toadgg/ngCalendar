@@ -1,0 +1,27 @@
+{
+  "name": "angular-calendar",
+  "authors": [
+    "张晓亮 <toadgg@gmail.com>"
+  ],
+  "description": "angularjs calendar 演示",
+  "main": "",
+  "moduleType": [],
+  "keywords": [
+    "angularjs",
+    "calendar"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "moment": "~2.11.2",
+    "angular": "angularjs#~1.5.0"
+  }
+}
