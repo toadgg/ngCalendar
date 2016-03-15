@@ -6,29 +6,40 @@
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/moment/min/moment.min.js"></script>
     <script src="calendar.js"></script>
-    <style>
-        .hasevent {
-            color: #ca4649;
-        }
-        .istoday {
-            background-color: #0a9dc7;
-        }
-    </style>
+    <link rel="stylesheet" href="index.css">
 </head>
 <body ng-app="Demo" ng-controller="DemoController">
-    <calendar events="eventList" on-date-click="dateClick(events)"></calendar>
+    <div class="calendar-box">
+        <calendar plan="eventList" current-date="currentDate" on-date-click="dateClick(tasks)"></calendar>
+        <b class="bgBottom"></b>
+    </div>
+
 </body>
 <script>
     angular.module('Demo', ['ngCalendar']).controller('DemoController', ['$scope',function($scope) {
+        $scope.currentDate=moment().format('YYYY-MM');
         $scope.eventList = [];
         $scope.eventList['2016-03-08'] = ['tip1', 'tip2'];
+        $scope.eventList['2016-03-15'] = ['tip1', 'tip2'];
         $scope.eventList['2016-03-18'] = ['tip3', 'tip4'];
         $scope.eventList['2016-03-01'] = ['tip3', 'tip4'];
-        $scope.dateClick = function(events) {
-            if (!events) {
+        $scope.dateClick = function(tasks) {
+            if (!tasks) {
                 return false;
             }
-            alert(events.join(','));
+
+            for (var key in $scope.eventList) {
+                if ($scope.eventList[key] != tasks){
+                    $scope.eventList[key].showTasks = undefined;
+                }
+            }
+
+            if (tasks.showTasks === undefined) {
+                tasks.showTasks = true;
+                tasks.desc = tasks.join(',');
+            } else {
+                tasks.showTasks = !tasks.showTasks;
+            }
         }
     }]);
 </script>

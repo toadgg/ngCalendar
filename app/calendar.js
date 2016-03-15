@@ -7,7 +7,8 @@ angular.module('ngCalendar', [])
             restrict: 'E',
             transclude: true,
             scope: {
-                events: '=',
+                plan: '=',
+                currentDate:'=',
                 click: '&onDateClick'
             },
             controller: ['$scope', function($scope){
@@ -37,27 +38,21 @@ angular.module('ngCalendar', [])
                     }
                     return calendar;
                 };
-                $scope.tip = function(events) {
-                    alert(events.join('\n'));
+                $scope.tip = function(plan) {
+                    alert(plan.join('\n'));
                 };
 
                 $scope.toady = moment().format('YYYY-MM-DD');
-                $scope.date = moment(moment().format('YYYY-MM'));
+                $scope.date = moment($scope.currentDate, 'YYYY-MM');
                 $scope.calendar = $scope.month($scope.date);
                 $scope.last = function() {
+                    console.log($scope.month($scope.date.subtract(1, 'months')));
                     $scope.calendar = $scope.month($scope.date.subtract(1, 'months'));
                 };
                 $scope.next = function() {
                     $scope.calendar = $scope.month($scope.date.add(1, 'months'));
                 }
             }],
-            template: "<button ng-click='last()'>上一月</button>\
-                 <button ng-click='next()'>下一月</button>\
-                 <p>日历 {{date.format('YYYY-MM')}}</p>\
-                 <p>----------------------------------------------</p>\
-                 <div ng-repeat='week in calendar'>\
-                   |<span ng-repeat='day in week' ng-click='click({events: events[day.format(\"YYYY-MM-DD\")]})' ng-class='{hasevent:events[day.format(\"YYYY-MM-DD\")], istoday:toady==day.format(\"YYYY-MM-DD\")}'>{{day.format('YYYY-MM')==date.format('YYYY-MM') ? day.format('DD') : '00'}} | </span>\
-                   <p>----------------------------------------------</p>\
-                 </div>"
+            templateUrl: "calendar.html"
         }
     });
