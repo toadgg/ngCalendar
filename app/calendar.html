@@ -1,0 +1,29 @@
+<div class="calendar">
+    <div class="calendar-top">
+        <span ng-click='last()' class="arrow-left"></span>
+        <span class="center-Y" ng-bind="date.format('YYYY年MM月')"></span>
+        <span ng-click='next()' class="arrow-right"></span>
+    </div>
+    <table>
+        <tr class="table-header">
+            <td>日</td>
+            <td>一</td>
+            <td>二</td>
+            <td>三</td>
+            <td>四</td>
+            <td>五</td>
+            <td>六</td>
+        </tr>
+        <tr class="clearfix" ng-repeat='week in calendar'>
+            <td ng-repeat='day in week' ng-click='click({tasks: plan[day.format("YYYY-MM-DD")]})' >
+                <div class="child-box" ng-class='{hastasks:plan[day.format("YYYY-MM-DD")], istoday:toady==day.format("YYYY-MM-DD"), noTasks:15<day.format("DD")}'>
+                    <b class="money" ng-if="plan[day.format('YYYY-MM-DD')]">¥</b>
+                    <span>{{day.format('YYYY-MM')==date.format('YYYY-MM') ? day.format('D') : ''}} </span>
+                    <!--tip-->
+                    <div ng-if="plan[day.format('YYYY-MM-DD')]['showTasks']" class="calendar-tip" ng-bind="plan[day.format('YYYY-MM-DD')]['desc']"></div>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+</div>
